@@ -8,13 +8,13 @@ public class Players {
     private int id;
     private String name;
     private String team;
-    private double strike_rate;
+    private String strike_rate;
     String thumbnail;
 
     public Players() {
     }
 
-    public Players(int id, String name, String team, double strike_rate) {
+    public Players(int id, String name, String team, String strike_rate) {
         this.id = id;
         this.name = name;
         this.team = team;
@@ -45,11 +45,19 @@ public class Players {
         this.team = team;
     }
 
-    public double getStrike_rate() {
+   /* public double getStrike_rate() {
         return strike_rate;
     }
 
     public void setStrike_rate(double strike_rate) {
+        this.strike_rate = strike_rate;
+    }*/
+
+    public String getStrike_rate() {
+        return strike_rate;
+    }
+
+    public void setStrike_rate(String strike_rate) {
         this.strike_rate = strike_rate;
     }
 
@@ -67,7 +75,7 @@ public class Players {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", team='" + team + '\'' +
-                ", strike_rate=" + strike_rate +
+                ", strike_rate='" + strike_rate + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 '}';
     }

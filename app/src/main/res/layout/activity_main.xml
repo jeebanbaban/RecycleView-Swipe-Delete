@@ -16,7 +16,17 @@
             android:background="@android:color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <include layout="@layout/content_main" />
+        <include layout="@layout/toolbar_header" />
+
+        <include layout="@layout/content_main" />
+
+    </LinearLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

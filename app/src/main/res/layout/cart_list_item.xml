@@ -10,6 +10,24 @@
         android:layout_height="match_parent"
         android:background="#669898">
 
+
+        <ImageView
+            android:id="@+id/delet_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_action_delete" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/delet_icon"
+            android:text="Delete"
+            android:textColor="#fff"
+            android:textSize="13dp" />
         <ImageView
             android:id="@+id/delete_icon"
             android:layout_width="30dp"
@@ -18,7 +36,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_action_delete" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
