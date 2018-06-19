@@ -19,8 +19,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ingreens.recycleswipedelete.Interfaces;
 import com.ingreens.recycleswipedelete.R;
 import com.ingreens.recycleswipedelete.adapters.RecycleViewAdapter;
 import com.ingreens.recycleswipedelete.helpers.RecyclerItemTouchHelper;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,RecycleViewAdapter.PlayersAdapterListener {
+public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,RecycleViewAdapter.PlayersAdapterListener,Interfaces.changeView {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     private CoordinatorLayout coordinatorLayout;
     Toolbar toolbar;
     private SearchView searchView;
+    private ImageView left_delete_imv,right_delete_imv;
+    private TextView left_tv_delete,right_tv_delete;
 
     // url to fetch menu json
     private static final String URL = "https://api.androidhive.info/json/menu.json";
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         recyclerView = findViewById(R.id.recycler_view);
         coordinatorLayout = findViewById(R.id.coordinator_layout);
         playersLists = new ArrayList<>();
-        mAdapter = new RecycleViewAdapter(this, playersLists,this);
+        mAdapter = new RecycleViewAdapter(this, playersLists,this,this);
         whiteNotificationBar(recyclerView);
 
 
@@ -92,30 +97,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     }
 
     private void preparePlayers() {
-        Players players = new Players(1,"Rohit Sharma","Mumbai Indians","147.56");
+        Players players = new Players(1,"Rohit Sharma","Mumbai Indians","147.56",R.drawable.rohit);
         playersLists.add(players);
-
-        players = new Players(2,"Shikhar Dhawan","Sunriser Hydrabad","137.22");
+        players = new Players(2,"Shikhar Dhawan","Sunriser Hydrabad","137.22",R.drawable.shikhar);
         playersLists.add(players);
-        players = new Players(3,"Virat Kohli","Royal Challengers Bangalore","157.22");
+        players = new Players(3,"Virat Kohli","Royal Challengers Bangalore","157.22",R.drawable.virat);
         playersLists.add(players);
-        players = new Players(4,"Sreyash Lyer","Delhi Daredevils","139.22");
+        players = new Players(4,"Sreyash Lyer","Delhi Daredevils","139.22",R.drawable.shreyas);
         playersLists.add(players);
-        players = new Players(5,"Suresh Raina","Chennai Super Kings","137.22");
+        players = new Players(5,"Suresh Raina","Chennai Super Kings","137.22",R.drawable.suresh);
         playersLists.add(players);
-        players = new Players(6,"M.S Dhoni","Chennai Super Kings","137.22");
+        players = new Players(6,"M.S Dhoni","Chennai Super Kings","137.22",R.drawable.dhoni);
         playersLists.add(players);
-        players = new Players(7,"Hardik Pandya","Mumbai Indians","137.22");
+        players = new Players(7,"Hardik Pandya","Mumbai Indians","137.22",R.drawable.pandya);
         playersLists.add(players);
-        players = new Players(8,"Kuldip Yadav","Kolkata Knight Riders","137.22");
+        players = new Players(8,"Kuldip Yadav","Kolkata Knight Riders","137.22",R.drawable.kuldeep);
         playersLists.add(players);
-        players = new Players(9,"Yubendra Chahal","Royal Challengers Bangalore","137.22");
+        players = new Players(9,"Yubendra Chahal","Royal Challengers Bangalore","137.22",R.drawable.chahal);
         playersLists.add(players);
-        players = new Players(10,"Bhubeneswar Kumar","Sunriser Hydrabad","127.22");
+        players = new Players(10,"Bhubeneswar Kumar","Sunriser Hydrabad","127.22",R.drawable.kumar);
         playersLists.add(players);
-        players = new Players(11,"Jasprit Bhumrah","Mumbai Indians","112.22");
+        players = new Players(11,"Jasprit Bhumrah","Mumbai Indians","112.22",R.drawable.bhumrah);
         playersLists.add(players);
-
 
         mAdapter.notifyDataSetChanged();
 
@@ -173,8 +176,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
 
         if (viewHolder instanceof RecycleViewAdapter.MyViewHolder) {
-            if (direction==4){
+            int right_to_left=4;
+            int left_to_right=8;
+            if (direction==right_to_left){
 
+                left_delete_imv.setVisibility(View.INVISIBLE);
+                left_tv_delete.setVisibility(View.INVISIBLE);
                 // get the removed item name to display it in snack bar
                 String name = playersLists.get(viewHolder.getAdapterPosition()).getName();
 
@@ -201,8 +208,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
 
-            }else if (direction==8){
+            }else if (direction==left_to_right){
 
+                right_delete_imv.setVisibility(View.INVISIBLE);
+                right_tv_delete.setVisibility(View.INVISIBLE);
                 // get the removed item name to display it in snack bar
                 String name = playersLists.get(viewHolder.getAdapterPosition()).getName();
 
@@ -259,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                 System.out.println("onQueryTextSubmit(query to String)==="+query.toString());
                 System.out.println("###################");
                 mAdapter.getFilter().filter(query);
-                mAdapter.getFilter().filter(query);
+                //mAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -298,6 +307,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         System.out.println("player strike rate  :"+players.getStrike_rate());
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77777");
     }
+
+    @Override
+    public void onSwipeViewChange(ImageView leftImageView, TextView leftTextView, ImageView rightImageView, TextView rightTextView) {
+          /*leftImageView.setVisibility(View.VISIBLE);
+        leftTextView.setVisibility(View.VISIBLE);
+        rightImageView.setVisibility(View.INVISIBLE);
+        rightTextView.setVisibility(View.INVISIBLE);*/
+        System.out.println("################################################");
+        /*System.out.println("onSwipeViewChange left img"+left_image_id);
+        System.out.println("onSwipeViewChange right img"+right_image_id);
+        System.out.println("onSwipeViewChange left tv"+left_tv_id);
+        System.out.println("onSwipeViewChange right tv"+right_tv_id);*/
+        System.out.println("################################################");
+        left_delete_imv=leftImageView;
+        left_tv_delete=leftTextView;
+        right_delete_imv=rightImageView;
+        right_tv_delete=rightTextView;
+    }
+
+
 /*@Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
 

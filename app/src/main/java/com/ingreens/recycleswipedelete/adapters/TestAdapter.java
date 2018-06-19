@@ -26,10 +26,9 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-    */
-/**
+*
      * Created by ravi on 16/11/17.
-     *//*
+
 
 
     public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder>

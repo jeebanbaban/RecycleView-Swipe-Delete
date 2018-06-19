@@ -9,16 +9,26 @@ public class Players {
     private String name;
     private String team;
     private String strike_rate;
+    private int image;
     String thumbnail;
 
     public Players() {
     }
 
-    public Players(int id, String name, String team, String strike_rate) {
+    public Players(int id, String name, String team, String strike_rate,int image) {
         this.id = id;
         this.name = name;
         this.team = team;
         this.strike_rate = strike_rate;
+        this.image=image;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public int getId() {

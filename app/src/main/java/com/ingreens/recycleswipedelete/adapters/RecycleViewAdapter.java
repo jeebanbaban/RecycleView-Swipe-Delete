@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ingreens.recycleswipedelete.Interfaces;
 import com.ingreens.recycleswipedelete.R;
 import com.ingreens.recycleswipedelete.models.Players;
 
@@ -24,15 +26,19 @@ import java.util.List;
 
     public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder>
 implements Filterable{
+
         private Context context;
         private List<Players> playersList;
         private List<Players> playersFilteredList;
         private PlayersAdapterListener playersAdapterListener;
+        private Interfaces.changeView changeView;
 
-
+        public ImageView left_delete_imv,right_delete_imv;
+        public TextView left_tv_delete,right_tv_delete;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView name, team, strikeRate;
+            public ImageView image;
             //public ImageView thumbnail;
             public RelativeLayout viewBackground, viewForeground;
 
@@ -41,9 +47,16 @@ implements Filterable{
                 name = view.findViewById(R.id.name);
                 team = view.findViewById(R.id.team);
                 strikeRate = view.findViewById(R.id.strikeRate);
+                image=view.findViewById(R.id.thumbnail);
                 //thumbnail = view.findViewById(R.id.thumbnail);
                 viewBackground = view.findViewById(R.id.view_background);
                 viewForeground = view.findViewById(R.id.view_foreground);
+
+                left_delete_imv=view.findViewById(R.id.left_delete_icon);
+                left_tv_delete=view.findViewById(R.id.left_tv_delete);
+                right_delete_imv=view.findViewById(R.id.right_delete_icon);
+                right_tv_delete=view.findViewById(R.id.right_tv_delete);
+
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -54,11 +67,12 @@ implements Filterable{
         }
 
 
-        public RecycleViewAdapter(Context context, List<Players> playersFilteredList,PlayersAdapterListener playersAdapterListener) {
+        public RecycleViewAdapter(Context context, List<Players> playersList,PlayersAdapterListener playersAdapterListener,Interfaces.changeView changeView) {
             this.context = context;
-            this.playersList=playersFilteredList;
-            this.playersFilteredList = playersFilteredList;
+            this.playersList=playersList;
+            this.playersFilteredList = playersList;
             this.playersAdapterListener=playersAdapterListener;
+            this.changeView=changeView;
         }
 
         @Override
@@ -75,6 +89,9 @@ implements Filterable{
             holder.name.setText(players.getName());
             holder.team.setText(players.getTeam());
             holder.strikeRate.setText("Strike Rate: " + players.getStrike_rate());
+            holder.image.setImageResource(players.getImage());
+            changeView.onSwipeViewChange(left_delete_imv,left_tv_delete,right_delete_imv,right_tv_delete);
+            //changeView.onSwipeViewChange(left_delete_imv,,left_tv_delete,left_tv_delete.getId(),right_delete_imv,right_delete_imv.getId(),right_tv_delete,right_tv_delete.getId());
 
           /*  Glide.with(context)
                     .load(item.getThumbnail())
@@ -108,7 +125,7 @@ implements Filterable{
                     System.out.println("chrcString empty nei ree.....");
                     System.out.println("################3");
                     List<Players> players=new ArrayList<>();
-                    for(Players p_row:playersFilteredList){
+                    for(Players p_row:playersList){
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
                         /*if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getPhone().contains(charSequence)) {

@@ -12,7 +12,7 @@
 
 
         <ImageView
-            android:id="@+id/delet_icon"
+            android:id="@+id/left_delete_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
@@ -20,16 +20,17 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_action_delete" />
         <TextView
+            android:id="@+id/left_tv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toRightOf="@id/delet_icon"
+            android:layout_toRightOf="@id/left_delete_icon"
             android:text="Delete"
             android:textColor="#fff"
             android:textSize="13dp" />
         <ImageView
-            android:id="@+id/delete_icon"
+            android:id="@+id/right_delete_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
@@ -37,11 +38,12 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_action_delete" />
         <TextView
+            android:id="@+id/right_tv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/delete_icon"
+            android:layout_toLeftOf="@id/right_delete_icon"
             android:text="Delete"
             android:textColor="#fff"
             android:textSize="13dp" />
@@ -87,10 +89,12 @@
             android:id="@+id/strikeRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="60dp"
             android:layout_toRightOf="@id/thumbnail"
             android:textColor="@color/colorAccent"
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+
 </FrameLayout>
